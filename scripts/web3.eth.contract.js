@@ -1,5 +1,6 @@
 var Web3 = require('web3');
-const { RPC, ABI, CONTRACT_ADDRESS } = require('../constants');
+const { signTransaction } = require('../common');
+const { RPC, ABI, CONTRACT_ADDRESS, BYTE_CODE } = require('../constants');
 
 const web3 = new Web3(new Web3.providers.HttpProvider(RPC));
 
@@ -8,7 +9,26 @@ var myContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 const firstMessage = 'Hello, Hardhat!';
 let messageToUpdate = 'Hello, Hardhat again!';
 
-const web3Contract = async (privateKey, address) => {
+const deploy = async () => {
+  let deployContract = new web3.eth.Contract(ABI);
+
+  // Function Parameter
+  let payload = {
+    data: BYTE_CODE,
+    arguments: ['Hello!']
+  };
+
+  const tx = await deployContract.deploy(payload);
+
+  signTransaction(tx);
+};
+
+const updateProperties = async (privateKey, address) => {
+  console.log(
+    'Setting the default account: ',
+    (web3.eth.defaultAccount = address)
+  );
+
   let message = await myContract.methods.greet().call();
   console.log('Using method.call() to get value: ', message);
 
@@ -18,48 +38,31 @@ const web3Contract = async (privateKey, address) => {
   console.log('Using method.send() to update the message');
 
   const tx = await myContract.methods.setGreeting(messageToUpdate);
-  const gas = await tx.estimateGas({ from: address });
-  const gasPrice = await web3.eth.getGasPrice();
-  const data = tx.encodeABI();
-  const nonce = await web3.eth.getTransactionCount(address);
 
-  const signedTx = await web3.eth.accounts.signTransaction(
-    {
-      to: myContract.options.address,
-      data,
-      gas,
-      gasPrice,
-      nonce,
-      chainId: 4002
-    },
-    privateKey
-  );
+  await signTransaction(tx, myContract, true);
 
-  const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-  console.log(`Transaction hash: ${receipt.transactionHash}`);
   console.log(`New data value: ${await myContract.methods.greet().call()}`);
-
-  const web3Subscribe = async () => {
-    myContract.getPastEvents(
-      'UpdateGreeting',
-      {
-        fromBlock: 0,
-        toBlock: 'latest'
-      },
-      function (error, events) {
-        if (error) {
-          console;
-          return;
-        }
-        for (i = 0; i < events.length; i++) {
-          var eventObj = events[i];
-          console.log('Greeting: ' + eventObj.returnValues.greeting);
-        }
-      }
-    );
-  };
-
-  web3Subscribe();
 };
 
-module.exports = { web3Contract };
+const getEvents = async () => {
+  await myContract.getPastEvents(
+    'UpdateGreeting',
+    {
+      fromBlock: 0,
+      toBlock: 'latest'
+    },
+    function (error, events) {
+      if (error) {
+        console;
+        return;
+      }
+      for (i = 0; i < events.length; i++) {
+        var eventObj = events[i];
+        console.log('Event Blocknumber: ', eventObj.blockNumber);
+        console.log('Event Data: ' + eventObj.returnValues.greeting);
+      }
+    }
+  );
+};
+
+module.exports = { deploy, updateProperties, getEvents };
