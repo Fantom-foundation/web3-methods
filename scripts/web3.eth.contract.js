@@ -38,6 +38,28 @@ const web3Contract = async (privateKey, address) => {
   const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
   console.log(`Transaction hash: ${receipt.transactionHash}`);
   console.log(`New data value: ${await myContract.methods.greet().call()}`);
+
+  const web3Subscribe = async () => {
+    myContract.getPastEvents(
+      'UpdateGreeting',
+      {
+        fromBlock: 0,
+        toBlock: 'latest'
+      },
+      function (error, events) {
+        if (error) {
+          console;
+          return;
+        }
+        for (i = 0; i < events.length; i++) {
+          var eventObj = events[i];
+          console.log('Greeting: ' + eventObj.returnValues.greeting);
+        }
+      }
+    );
+  };
+
+  web3Subscribe();
 };
 
 module.exports = { web3Contract };
