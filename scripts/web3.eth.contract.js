@@ -23,11 +23,9 @@ const deploy = async () => {
   signTransaction(tx);
 };
 
-const updateProperties = async (privateKey, address) => {
-  console.log(
-    'Setting the default account: ',
-    (web3.eth.defaultAccount = address)
-  );
+const updateProperties = async () => {
+  web3.eth.defaultAccount = process.env.FROM_ADDRESS;
+  console.log('Setting the default account: ', web3.eth.defaultAccount);
 
   let message = await myContract.methods.greet().call();
   console.log('Using method.call() to get value: ', message);

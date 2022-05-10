@@ -3,7 +3,7 @@ const EthUtil = require('ethereumjs-util');
 const Tx = require('ethereumjs-tx').Transaction;
 const Common = require('ethereumjs-common').default;
 
-const { RPC, TXHASH, ABI, CONTRACT_ADDRESS } = require('../constants');
+const { RPC, TXHASH, ABI, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
 
 var web3 = new Web3(RPC);
 
@@ -69,4 +69,14 @@ const batchRequest = async () => {
   batch.execute();
 };
 
-module.exports = { web3Eth, batchRequest };
+const getPastLogs = async () => {
+  web3.eth
+    .getPastLogs({
+      fromBlock: 8958578,
+      address: CONTRACT_ADDRESS,
+      topics: [TOPIC0]
+    })
+    .then(console.log);
+};
+
+module.exports = { web3Eth, batchRequest, getPastLogs };
