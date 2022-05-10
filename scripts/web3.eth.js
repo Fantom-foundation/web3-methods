@@ -7,7 +7,7 @@ const { RPC, TXHASH, ABI, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
 
 var web3 = new Web3(RPC);
 
-const web3Eth = async () => {
+const basic = async () => {
   let address = process.env.FROM_ADDRESS;
 
   let blockNumber = await web3.eth.getBlockNumber();
@@ -79,4 +79,4 @@ const getPastLogs = async () => {
     .then(console.log);
 };
 
-module.exports = { web3Eth, batchRequest, getPastLogs };
+module.exports = { basic, batchRequest, getPastLogs };
