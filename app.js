@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { web3Eth } = require('./scripts/web3.eth');
+const { web3Eth, batchRequest } = require('./scripts/web3.eth');
 const {
   deploy,
   getEvents,
@@ -9,6 +9,7 @@ const {
 
 // Web3.eth functions
 web3Eth();
+batchRequest();
 
 // Web3.eth.contract functions
 deploy();

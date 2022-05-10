@@ -3,7 +3,7 @@ const EthUtil = require('ethereumjs-util');
 const Tx = require('ethereumjs-tx').Transaction;
 const Common = require('ethereumjs-common').default;
 
-const { RPC, TXHASH } = require('../constants');
+const { RPC, TXHASH, ABI, CONTRACT_ADDRESS } = require('../constants');
 
 var web3 = new Web3(RPC);
 
@@ -45,4 +45,28 @@ const web3Eth = async () => {
   console.log('Get chainId: ', await web3.eth.getChainId());
 };
 
-module.exports = { web3Eth };
+const batchRequest = async () => {
+  var myContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+  var batch = await new web3.BatchRequest();
+  batch.add(
+    web3.eth.getBalance.request(
+      process.env.FROM_ADDRESS,
+      'latest',
+      (error, result) => {
+        if (error) console.error(error);
+        else console.log('Result: ', web3.utils.fromWei(result, 'ether'));
+      }
+    )
+  );
+  batch.add(
+    myContract.methods
+      .greet()
+      .call.request({ from: process.env.FROM_ADDRESS }, (error, result) => {
+        if (error) console.error(error);
+        else console.log('Result: ', result);
+      })
+  );
+  batch.execute();
+};
+
+module.exports = { web3Eth, batchRequest };
