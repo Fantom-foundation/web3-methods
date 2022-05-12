@@ -12,6 +12,7 @@ const {
   getEvents,
   updateProperties
 } = require('./scripts/web3.eth.contract');
+const { web3Iban } = require('./scripts/web3.eth.iban');
 
 // * Web3.eth functions
 basic();
@@ -28,3 +29,6 @@ createAccounts();
 signAndRecoverMessage();
 encryptAndDecrypt();
 wallets();
+
+// * Web3.eth.personal functions
+web3Iban();
