@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { basic, batchRequest, getPastLogs } = require('./scripts/web3.eth');
+const { web3ABI } = require('./scripts/web3.eth.abi');
 const {
   createAccounts,
   signAndRecoverMessage,
@@ -32,3 +33,6 @@ wallets();
 
 // * Web3.eth.personal functions
 web3Iban();
+
+// * Web3.eth.abi functions
+web3ABI();
