@@ -14,6 +14,7 @@ const {
   updateProperties
 } = require('./scripts/web3.eth.contract');
 const { web3Iban } = require('./scripts/web3.eth.iban');
+const { web3Utils } = require('./scripts/web3.eth.utils');
 
 // * Web3.eth functions
 basic();
@@ -36,3 +37,6 @@ web3Iban();
 
 // * Web3.eth.abi functions
 web3ABI();
+
+// * Web3.eth.util functions
+web3Utils();
