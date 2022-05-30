@@ -43,6 +43,18 @@ const basic = async () => {
   );
 
   console.log('Get chainId: ', await web3.eth.getChainId());
+
+  console.log('Get block header timeout: ', web3.eth.blockHeaderTimeout);
+
+  console.log(
+    'Get transactionPollingTimeout: ',
+    web3.eth.transactionPollingTimeout
+  );
+
+  console.log(
+    'Get transactionPollingInterval: ',
+    web3.eth.transactionPollingInterval
+  );
 };
 
 const batchRequest = async () => {
