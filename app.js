@@ -1,16 +1,46 @@
 require('dotenv').config();
 
-const { web3Eth, sendTransaction } = require('./scripts/web3.eth');
-const { web3Contract } = require('./scripts/web3.eth.contract');
+const { basic, batchRequest, getPastLogs } = require('./scripts/web3.eth');
+const { web3ABI } = require('./scripts/web3.eth.abi');
+const {
+  createAccounts,
+  signAndRecoverMessage,
+  encryptAndDecrypt,
+  wallets
+} = require('./scripts/web3.eth.accounts');
+const {
+  deploy,
+  getEvents,
+  updateProperties
+} = require('./scripts/web3.eth.contract');
+const { web3Iban } = require('./scripts/web3.eth.iban');
+const { web3Utils } = require('./scripts/web3.eth.utils');
+const { web3NetGetId } = require('./scripts/web3.eth.net');
 
-// Web3.eth functions
-web3Eth(process.env.FROM_ADDRESS);
+// * Web3.eth functions
+basic();
+batchRequest();
+getPastLogs();
 
-// sendTransaction(
-//   process.env.PRIVATE_KEY,
-//   process.env.FROM_ADDRESS,
-//   process.env.TO_ADDRESS
-// );
+// * Web3.eth.contract functions
+deploy();
+updateProperties();
+getEvents();
 
-// Web3.eth.contract functions
-web3Contract(process.env.PRIVATE_KEY, process.env.FROM_ADDRESS);
+// * Web3.eth.account functions
+createAccounts();
+signAndRecoverMessage();
+encryptAndDecrypt();
+wallets();
+
+// * Web3.eth.personal functions
+web3Iban();
+
+// * Web3.eth.abi functions
+web3ABI();
+
+// * Web3.eth.util functions
+web3Utils();
+
+// *Web3.eth.net functions
+web3NetGetId();
