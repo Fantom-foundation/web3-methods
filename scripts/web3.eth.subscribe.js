@@ -1,10 +1,8 @@
 var Web3 = require('web3');
 
-const { RPC, ABI, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
+const { RPC2, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
 
-const localProvider = new Web3.providers.WebsocketProvider(
-  'wss://rpc.testnet.fantom.network'
-);
+const localProvider = new Web3.providers.WebsocketProvider(RPC2);
 const web3 = new Web3(localProvider);
 
 let options = {
@@ -24,7 +22,7 @@ const web3Subscribe = async () => {
     .on('data', function (log) {
       console.log(log);
     })
-    .on('changed', function (log) {});
+    .on('changed', function (log) { });
 };
 
 web3Subscribe();

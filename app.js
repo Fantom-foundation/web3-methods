@@ -15,6 +15,7 @@ const {
 } = require('./scripts/web3.eth.contract');
 const { web3Iban } = require('./scripts/web3.eth.iban');
 const { web3Utils } = require('./scripts/web3.eth.utils');
+const { web3NetGetId } = require('./scripts/web3.eth.net');
 
 // * Web3.eth functions
 basic();
@@ -40,3 +41,6 @@ web3ABI();
 
 // * Web3.eth.util functions
 web3Utils();
+
+// *Web3.eth.net functions
+web3NetGetId();
