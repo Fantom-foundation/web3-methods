@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { basic, batchRequest, getPastLogs } = require('./scripts/web3.eth');
+const { basic, getPastLogs } = require('./scripts/web3.eth');
 const { web3ABI } = require('./scripts/web3.eth.abi');
 const {
   createAccounts,
@@ -11,7 +11,8 @@ const {
 const {
   deploy,
   getEvents,
-  updateProperties
+  updateProperties,
+  batchRequest
 } = require('./scripts/web3.eth.contract');
 const { web3Iban } = require('./scripts/web3.eth.iban');
 const { web3Utils } = require('./scripts/web3.eth.utils');
@@ -19,13 +20,13 @@ const { web3NetGetId } = require('./scripts/web3.eth.net');
 
 // * Web3.eth functions
 basic();
-batchRequest();
 getPastLogs();
 
 // * Web3.eth.contract functions
 deploy();
 updateProperties();
 getEvents();
+batchRequest();
 
 // * Web3.eth.account functions
 createAccounts();

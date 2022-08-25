@@ -3,7 +3,7 @@ const EthUtil = require('ethereumjs-util');
 const Tx = require('ethereumjs-tx').Transaction;
 const Common = require('ethereumjs-common').default;
 
-const { RPC, TXHASH, ABI, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
+const { RPC, TXHASH, CONTRACT_ADDRESS, TOPIC0 } = require('../constants');
 
 var web3 = new Web3(RPC);
 
@@ -57,30 +57,6 @@ const basic = async () => {
   );
 };
 
-const batchRequest = async () => {
-  var myContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-  var batch = await new web3.BatchRequest();
-  batch.add(
-    web3.eth.getBalance.request(
-      process.env.FROM_ADDRESS,
-      'latest',
-      (error, result) => {
-        if (error) console.error(error);
-        else console.log('Result: ', web3.utils.fromWei(result, 'ether'));
-      }
-    )
-  );
-  batch.add(
-    myContract.methods
-      .greet()
-      .call.request({ from: process.env.FROM_ADDRESS }, (error, result) => {
-        if (error) console.error(error);
-        else console.log('Result: ', result);
-      })
-  );
-  batch.execute();
-};
-
 const getPastLogs = async () => {
   web3.eth
     .getPastLogs({
@@ -91,4 +67,4 @@ const getPastLogs = async () => {
     .then(console.log);
 };
 
-module.exports = { basic, batchRequest, getPastLogs };
+module.exports = { basic, getPastLogs };
