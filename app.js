@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { basic, getPastLogs } = require('./scripts/web3.eth');
+const { gasPrices } = require('./scripts/gasPrice');
 const { transfer } = require('./scripts/transfer');
 const { web3ABI } = require('./scripts/web3.eth.abi');
 const {
@@ -19,6 +20,11 @@ const { web3Iban } = require('./scripts/web3.eth.iban');
 const { web3Utils } = require('./scripts/web3.eth.utils');
 const { web3NetGetId } = require('./scripts/web3.eth.net');
 
+// ! Use one function at a time
+
+// * Gas Price Data
+gasPrices();
+/*
 // * Transfer
 transfer();
 
@@ -49,3 +55,4 @@ web3Utils();
 
 // *Web3.eth.net functions
 web3NetGetId();
+*/

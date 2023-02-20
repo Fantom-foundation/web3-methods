@@ -18,7 +18,7 @@ const transfer = async () => {
   const gasPrice = await web3.eth.getGasPrice();
 
   const transaction = {
-    to: process.env.TO_ADDRESS, // faucet address to return eth
+    to: process.env.TO_ADDRESS,
     value: 1000000000000000000,
     gas: 21000,
     gasPrice
