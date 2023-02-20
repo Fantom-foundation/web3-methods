@@ -4,7 +4,7 @@ const { MAINNET_RPC } = require('../constants');
 
 var web3 = new Web3(MAINNET_RPC);
 
-const historicalBlocks = 1;
+const historicalBlocks = 4;
 
 const hexToDecimal = (hex) => parseInt(hex, 16);
 const weiToGwei = (price) => {
@@ -23,10 +23,13 @@ const gasPrices = async () => {
   web3.eth.getGasPrice().then((gasPrice) => {
     console.log('Gas Price (using web3 API): ', weiToGwei(gasPrice));
   });
+
   web3.eth
     .getFeeHistory(historicalBlocks, 'pending', [1, 50, 99])
     .then((feeHistory) => {
       const blocks = formatFeeHistory(feeHistory, false);
+
+      console.log('Blocks: ', blocks); //Use this to get the complete output
 
       const slow = avg(blocks.map((b) => b.priorityFeePerGas[0]));
       const average = avg(blocks.map((b) => b.priorityFeePerGas[1]));
