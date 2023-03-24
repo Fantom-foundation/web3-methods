@@ -1,7 +1,7 @@
 var Web3 = require('web3');
-const { RPC } = require('../constants');
+const { TESTNET_RPC } = require('../constants');
 
-const web3 = new Web3(new Web3.providers.HttpProvider(RPC));
+const web3 = new Web3(new Web3.providers.HttpProvider(TESTNET_RPC));
 
 let IBAN = process.env.IBAN;
 

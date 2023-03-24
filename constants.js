@@ -1,4 +1,4 @@
-const RPC = 'https://rpc.testnet.fantom.network';
+const TESTNET_RPC = 'https://rpc.testnet.fantom.network';
 const RPC2 = 'ws://204.236.200.163:18546/'; // or this one   //'ws://18.212.210.188:18546/'
 const MAINNET_RPC = 'https://rpcapi.fantom.network/';
 
@@ -68,7 +68,7 @@ const TOPIC0 =
 
 module.exports = {
   MAINNET_RPC,
-  RPC,
+  TESTNET_RPC,
   RPC2,
   TXHASH,
   ABI,

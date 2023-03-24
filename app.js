@@ -22,11 +22,12 @@ const { web3NetGetId } = require('./scripts/web3.eth.net');
 
 // ! Use one function at a time
 
-// * Gas Price Data
-gasPrices();
 /*
+// * Gas Price Data
+// gasPrices();
+
 // * Transfer
-transfer();
+// transfer();
 
 // * Web3.eth functions
 basic();

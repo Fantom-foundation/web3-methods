@@ -1,8 +1,8 @@
 var Web3 = require('web3');
 const { signTransaction } = require('../common');
-const { RPC, ABI, CONTRACT_ADDRESS, BYTE_CODE } = require('../constants');
+const { TESTNET_RPC, ABI, CONTRACT_ADDRESS, BYTE_CODE } = require('../constants');
 
-const web3 = new Web3(new Web3.providers.HttpProvider(RPC));
+const web3 = new Web3(new Web3.providers.HttpProvider(TESTNET_RPC));
 
 var myContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
