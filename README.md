@@ -36,6 +36,14 @@ This package provides utility functions for Blockchain dapps and other web3.js p
 
 ## Build
 
+### Add .env file
+```
+FROM_ADDRESS=
+PRIVATE_KEY = 
+TO_ADDRESS=
+IBAN=
+```
+
 ```shell
 npm install
 ```
