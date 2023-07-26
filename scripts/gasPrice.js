@@ -27,9 +27,11 @@ const gasPrices = async () => {
   web3.eth
     .getFeeHistory(historicalBlocks, 'pending', [1, 50, 99])
     .then((feeHistory) => {
+      console.log('Before Formatting: ', feeHistory);
+
       const blocks = formatFeeHistory(feeHistory, false);
 
-      console.log('Blocks: ', blocks); //Use this to get the complete output
+      console.log('\nBlocks: ', blocks); 
 
       const slow = avg(blocks.map((b) => b.priorityFeePerGas[0]));
       const average = avg(blocks.map((b) => b.priorityFeePerGas[1]));
